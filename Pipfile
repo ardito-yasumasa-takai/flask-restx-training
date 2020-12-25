@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+black = "*"
+isort = "*"
+pre-commit = "*"
+pytest = "*"
+
+[packages]
+flask-restx = "==0.2.0"
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
+
+[scripts]
+start = "flask run --host=0.0.0.0"
+test = "pytest"
+lint = "flake8 --show-source app"
+fromat = "black ."
+isort = "isort --check ."
