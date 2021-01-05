@@ -12,6 +12,10 @@ pytest = "*"
 
 [packages]
 flask-restx = "==0.2.0"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+pymysql = "*"
+flask-migrate = "*"
 
 [requires]
 python_version = "3.9"
