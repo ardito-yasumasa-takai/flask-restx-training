@@ -1,0 +1,49 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_MYSQL_USER}
+      MYSQL_PASSWORD: ${DB_MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${DB_MYSQL_DATABASE}
+    command: >
+      mysqld
+      --character-set-server=utf8
+      --collation-server=utf8_unicode_ci
+    ports:
+      - ${HOSTPORT_DB}:3306
+
+  api:
+    build:
+      context: ./
+      dockerfile: dockerfile
+      target: dev
+    volumes:
+      - .:/code
+      - python-packages:/root/.local/share
+    working_dir: /code
+    environment:
+      FLASK_APP: ${FLASK_APP}
+      FLASK_DEBUG: ${FALSK_DEBUG}
+      FLASK_ENV: ${FALSK_ENV}
+      TZ: Asia/Tokyo
+    ports:
+      - ${HOSTPORT_API}:5000
+    command:
+      - "python"
+      - "-m"
+      - "flask"
+      - "run"
+      - "--host=0.0.0.0"
+    depends_on:
+      - wait
+  wait:
+    image: willwill/wait-for-it:latest
+    command: >
+      db:3306 -- echo "db is up"
+    depends_on:
+      - db
+
+volumes:
+  python-packages:
