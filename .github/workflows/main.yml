@@ -1,0 +1,28 @@
+
+name: ci
+
+on:
+  pull_request:
+    paths:
+      - '**.py'
+    branches: [develop/**]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+      - name: 'Fetch'
+        run: git fetch --depth 1 origin ${TARGET_BRANCH}
+      - name: Install flake8
+        run: pip install flake8
+      - name: Install isort
+        run : pip install isort
+      - name: 'run flake8'
+        run: |
+          for file in $(git diff origin/${GITHUB_BASE_REF} HEAD --diff-filter=AM --name-only -- "*.py") ; do
+            # ここで任意の処理をする
+            flake8 ${file}
+            isort ${file} --diff
+          done
