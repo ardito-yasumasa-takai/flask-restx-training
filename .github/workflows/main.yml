@@ -1,28 +1,15 @@
-
-name: ci
-
-on:
-  pull_request:
-    paths:
-      - '**.py'
-    branches: [develop/**]
+on: [pull_request]
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
-        uses: actions/checkout@v2
-      - name: 'Fetch'
-        run: git fetch --depth 1 origin ${TARGET_BRANCH}
-      - name: Install flake8
-        run: pip install flake8
-      - name: Install isort
-        run : pip install isort
-      - name: 'run flake8'
-        run: |
-          for file in $(git diff origin/${GITHUB_BASE_REF} HEAD --diff-filter=AM --name-only -- "*.py") ; do
-            # ここで任意の処理をする
-            flake8 ${file}
-            isort ${file} --diff
-          done
+      - uses: actions/checkout@v1
+      - uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
+        with:
+          # The GitHub API token to create reviews with
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Fail if "new" violations detected or "any", default "new"
+          failIf: new
+          # Additional arguments to pass to flake8, default "." (current directory)
+          args: "--ignore=E121,E123 ."
