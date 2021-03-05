@@ -1,9 +1,14 @@
-from flask import Blueprint, Flask
-from flask_restx import Api
-
 import app.resources as resources
 from app.config.database import init_db
 
+from flask import Blueprint, Flask
+from flask_restx import Api
+
+
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 1
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 1
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 1
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 1
 
 def create_app(**kwargs):
     flask_app = Flask(__name__)
@@ -29,3 +34,8 @@ def create_app(**kwargs):
 if __name__ == "__main__":
     app = create_app()
     app.run()
+    
+    
+    
+    
+    
